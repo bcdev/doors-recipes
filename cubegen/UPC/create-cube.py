@@ -16,7 +16,7 @@ NAMES = ['rho', 'u', 'v', 'psi']
 
 
 def _adjust_metadata(ds: xr.Dataset, name: str) -> xr.Dataset:
-    ds.attrs['title'] = f'{ds.attrs["title"]} {name}'
+    ds.attrs['title'] = f'DOORS UPC Dniester Coastal ({name} values)'
     return ds
 
 

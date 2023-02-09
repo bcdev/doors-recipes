@@ -18,6 +18,9 @@ def adjust_metadata(ds: xr.Dataset, contributor_data: dict) -> xr.Dataset:
         ds.attrs['orig_file_name'] = ds.attrs.pop('file_name')
     if 'file' in ds.attrs:
         ds.attrs['orig_file_name'] = ds.attrs.pop('file')
+    if 'title' in ds.attrs:
+        ds.attrs['title'] = \
+            f'DOORS {contributor_data["name"]} {ds.attrs["title"]}'
     ds.attrs['recipe'] = contributor_data['recipe_path']
     ds.attrs['date_modified'] = datetime.now().strftime(TIME_FORMAT)
     if 'lon' in ds:

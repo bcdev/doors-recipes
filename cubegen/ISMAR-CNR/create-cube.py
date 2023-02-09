@@ -17,9 +17,10 @@ def _apply_level(ds: xr.Dataset) -> xr.Dataset:
 
 def _adjust_metadata(ds: xr.Dataset, data_id: str) -> xr.Dataset:
     if '_hydro_' in data_id:
-        ds.attrs['title'] = 'Western BS Hydro 3D Characterization'
+        ds.attrs['title'] = 'DOORS ISMAR-CNR Western BS ' \
+                            'Hydro 3D Characterization'
     if '_ts_' in data_id:
-        ds.attrs['title'] = 'Western BS TS 3D Characterization'
+        ds.attrs['title'] = 'DOORS ISMAR-CNR Western BS TS 3D Characterization'
     return ds
 
 
