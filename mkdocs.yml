@@ -10,9 +10,6 @@ nav:
     - About DOORS Data Sets: index.md
   - Datasets:
     - List of datasets: datasets/datasets.md
-    - Earth System Data Cube: datasets/ESDC.md
-    - Baltic Sea Cube: datasets/baltic-sea.md
-    - Black Sea Cube: datasets/black-sea.md
 
     - DOORS Hereon Wave Products (2D) - Instantaneous Field Data Cube: datasets/Hereon--WAVES-BSeas4-BS-b20230123_re-sv08.00.md
     - DOORS ISMAR-CNR Western BS Hydro 3D Characterization Data Cube: datasets/west2018_01_01_2020_reg_hydro_0.01.md
