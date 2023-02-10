@@ -1,5 +1,8 @@
 # Datasets
 
+-   [CMEMS CHL Black Sea Data Cube](CMEMS_OC_BS_4.zarr.md)
+-   [CMEMS Salinity daily mean Black Sea Data Cube](bs-cmcc-sal-rean-d_1653925405736.zarr.md)
+-   [CMEMS SST Black Sea Data Cube](cmems_SST_BS_SST_L4_REP_OBSERVATIONS_010_022_1653926779692.zarr.md)
 -   [DOORS Hereon Wave Products (2D) - Instantaneous Field Data Cube](Hereon--WAVES-BSeas4-BS-b20230123_re-sv08.00.md)
 -   [DOORS ISMAR-CNR Western BS Hydro 3D Characterization Data Cube](west2018_01_01_2020_reg_hydro_0.01.md)
 -   [DOORS ISMAR-CNR Western BS TS 3D Characterization Data Cube](west2018_01_01_2020_reg_ts_0.01.md)
@@ -9,3 +12,4 @@
 -   [DOORS UPC Dniester Coastal (rho values) Data Cube](coawst_his_sample_rho.md)
 -   [DOORS UPC Dniester Coastal (u values) Data Cube](coawst_his_sample_u.md)
 -   [DOORS UPC Dniester Coastal (v values) Data Cube](coawst_his_sample_v.md)
+-   [HR-OC coastal monthly Black Sea Data Cube](hroc-l4m-blk-100m-v1.md)
