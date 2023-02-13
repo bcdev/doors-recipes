@@ -2,10 +2,8 @@
 
 """Generate description in Markdown and map image for a dataset from geojson"""
 
-from typing import Dict, Any, List
+from typing import Dict, Any
 import sys
-import yaml
-import click
 import re
 import os
 import matplotlib.pyplot as plt
@@ -21,36 +19,33 @@ def create_doors_dataset_docs(output_dir: str):
     doors_store = new_data_store(
         's3',
         root='doors-cubes/model-data',
-        max_depth=2,
+        max_depth=3,
         storage_options={
             'anon': False
         }
     )
     for data_id in doors_store.get_data_ids():
         dataset = doors_store.open_data(data_id)
-        _create_dataset_doc(dataset, data_id, output_dir)
+        try:
+            base_dataset = dataset.base_dataset
+        except AttributeError:
+            base_dataset = dataset
+        _create_dataset_doc(base_dataset, data_id, output_dir)
 
 
 def _create_dataset_doc(dataset: xr.Dataset, data_id: str, output_dir: str):
-    # with open(json_file, 'r') as fh:
-    #     metadata = yaml.safe_load(fh)
-    # basename = (
-    #     name
-    #     if name is not None
-    #     else os.path.basename(json_file).removesuffix('.geojson')
-    # )
     basename = data_id.split('.levels')[0].split('/')[-1]
     print(basename)
     output_filename = basename + '.md'
     bbox_image_path = os.path.join(output_dir, basename + '.png')
     with open(os.path.join(output_dir, output_filename), 'w') as output:
-        # props = metadata['properties']
-        props = dataset.base_dataset.attrs
+        props = dataset.attrs
         output.write(f'# {props["title"]}\n\n')
         output.write('## Basic information\n\n')
         output.write(f'![Bounding box map]({basename + ".png"})<br>\n')
         output.write(
-            '<span style="font-size: x-small">Map tiles by <a href="http://stamen.com">'
+            '<span style="font-size: x-small">Map tiles by '
+            '<a href="http://stamen.com">'
             'Stamen Design</a>, under '
             '<a href="http://creativecommons.org/licenses/by/3.0">'
             'CC BY 3.0</a>. Data by '
@@ -62,28 +57,22 @@ def _create_dataset_doc(dataset: xr.Dataset, data_id: str, output_dir: str):
         output.write(make_basic_info(props))
         output.write('## Variable list\n\n')
         # output.write(make_variable_list_table(props['variables']))
-        output.write(make_variable_list_table(dataset.base_dataset))
+        output.write(make_variable_list_table(dataset))
         output.write('## Full variable metadata\n\n')
-        for variable in dataset.base_dataset.data_vars:
+        for variable in dataset.data_vars:
             variable_source_filename = (
                 basename + '-' + variable + '.md'
             )
-            # variable_source_path = os.path.join(
-            #     output_dir, variable_source_filename
-            # )
             output.write(
                 f'### <a name="{variable}"></a>'
-                f'{dataset.base_dataset[variable].attrs.get("long_name")}\n\n'
+                f'{dataset[variable].attrs.get("long_name")}\n\n'
             )
             output.write(
                 make_table(
-                    dataset.base_dataset[variable].attrs,
+                    dataset[variable].attrs,
                     source_link=variable_source_filename
                 )
             )
-            # if 'source' in variable:
-            #     with open(variable_source_path, 'w') as fh:
-            #         fh.write(f'`{variable["source"]}`\n')
         output.write(
             '## <a name="full-metadata"></a>' 'Full dataset metadata\n\n'
         )
@@ -115,8 +104,10 @@ def make_basic_info(props: Dict[str, Any]) -> str:
          if 'time_coverage_start' in props else '') +
         (f'| Time period | {props["time_period"]} |\n'
          if 'time_period' in props else '') +
-        f'| Contributor | {props["contributor_name"]} |\n' +
-        f'| Creator | {props["creator_name"]} |\n' +
+        f'| Contributor | {props["contributor_name"]} |\n'
+         if 'contributor_name' in props else '' +
+        f'| Creator | {props["creator_name"]} |\n'
+        if 'creator_name' in props else ''+
         f'\n'
         '[Click here for full dataset metadata.](#full-metadata)\n\n'
     )
@@ -218,6 +209,11 @@ def make_map(props: Dict[str, Any], output_path: str) -> None:
         output_path: the path to which to write the map. The output format
             is determined by the file extension of this path.
     """
+    if 'geospatial_lon_min' not in props or \
+            'geospatial_lon_max' not in props or \
+            'geospatial_lat_min' not in props or \
+            'geospatial_lat_max' not in props:
+        return
     x0 = props['geospatial_lon_min']
     x1 = props['geospatial_lon_max']
     y0 = props['geospatial_lat_min']
