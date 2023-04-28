@@ -61,7 +61,7 @@ def get_output_store(output_path: str, contributor: str):
         )
     return new_data_store(
         's3',
-        root=f'doors-cubes/{contributor}',
+        root=f'doors-cubes/model-data/{contributor}',
         storage_options={
             'anon': False
         }
