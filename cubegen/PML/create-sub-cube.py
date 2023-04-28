@@ -32,8 +32,13 @@ def _create_cube(host: str,
                  offset: int,
                  output_path: str = None
                  ):
+    # To facilitate computation, after creation a file named out_{offset} is
+    # written to the outs folder. If such a file exists, computation is aborted.
+    # If no such file exists, any existing zarr files with the name are assumed
+    # to be corrupted and deleted before processing begins.
+
     k = int(offset / 10) + 1
-    outfile = f'out_{k}'
+    outfile = f'outs/out_{k}'
     output_ds = f'c_gls_LWQ300_201604260000_black_OLCI_V1.4.0_owt_{k}.zarr'
     if os.path.exists(outfile):
         print(f'Entry {output_ds} already exists and is complete')
@@ -51,9 +56,7 @@ def _create_cube(host: str,
     data_ids = list(input_store.get_data_ids())
     data_ids.sort()
 
-    # As currently it is not possible to update data in a levels format,
-    # we first have to write the data to a zarr, then read it back in,
-    # and then write it as a levels product
+
     print(f'Building {output_ds}')
     for i in range(10):
         index = i + offset

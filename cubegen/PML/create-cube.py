@@ -50,9 +50,11 @@ def _create_cube(host: str,
     data_ids = list(input_store.get_data_ids())
 
     # As currently it is not possible to update data in a levels format,
-    # we first have to write the data to a zarr, then read it back in,
-    # and then write it as a levels product
-    for j in range(270, len(data_ids), 10):
+    # we first have to write the data as zarr, then read it back in,
+    # and then write it as a levels product. Also, due to the size of the
+    # product, we first write it as individual files that are later merged into
+    # one. These sub-files are created by the create-sub-cube script.
+    for j in range(0, len(data_ids), 10):
         sub_command = ["python", "create-sub-cube.py",
                         f'{host}', f'{root}',
                         f'{username}', f'{password}',
