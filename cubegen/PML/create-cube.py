@@ -1,5 +1,6 @@
+import subprocess
 import sys
-import xarray as xr
+import time
 
 from xcube.core.store import new_data_store
 
@@ -26,6 +27,18 @@ def _get_input_store(host: str, root: str, username: str, password: str):
                           )
 
 
+def _get_input_store(host: str, root: str, username: str, password: str):
+    storage_options = {
+        'host': host,
+        'username': username,
+        'password': password
+    }
+    return new_data_store('ftp',
+                          root=root,
+                          storage_options=storage_options
+                          )
+
+
 def _create_cube(host: str,
                  root: str,
                  username: str,
@@ -33,56 +46,63 @@ def _create_cube(host: str,
                  output_path: str = None
                  ):
     input_store = _get_input_store(host, root, username, password)
-    output_store = du.get_output_store(output_path, CONTRIBUTOR_DATA['name'])
-
-    fs_type = 's3' if output_path is None else 'file'
 
     data_ids = list(input_store.get_data_ids())
-    data_ids.sort()
 
     # As currently it is not possible to update data in a levels format,
     # we first have to write the data to a zarr, then read it back in,
     # and then write it as a levels product
-    for j in range(0, len(data_ids), 10):
-        k = int(j / 10) + 1
-        output_ds = f'c_gls_LWQ300_201604260000_black_OLCI_V1.4.0_owt_{k}.zarr'
-        print(f'Building {output_ds}')
-        for i in range(10):
-            index = i + j
-            ds_id = data_ids[index]
-            print(f'Opening {ds_id}, #{index + 1}')
-            ds = input_store.open_data(ds_id)
-            print(f'Processing {ds_id}, #{index + 1}')
-            if i == 0:
-                output_store.write_data(
-                    ds,
-                    output_ds,
-                    replace=True,
-                    writer_id=f'dataset:zarr:{fs_type}')
-            else:
-                output_store.write_data(
-                    ds,
-                    output_ds,
-                    replace=False,
-                    append_dim='time',
-                    writer_id='dataset:zarr:file'
-                )
+    for j in range(270, len(data_ids), 10):
+        sub_command = ["python", "create-sub-cube.py",
+                        f'{host}', f'{root}',
+                        f'{username}', f'{password}',
+                        f'{j}']
+        if output_path is not None:
+            sub_command.append(f'{output_path}')
+        subprocess.run(sub_command)
 
-    # written_ds = output_store.open_data(
-    #     'c_gls_LWQ300_201604260000_black_OLCI_V1.4.0_owt.zarr'
-    # )
-    # written_ds = du.adjust_metadata(written_ds, CONTRIBUTOR_DATA)
-    # written_ds = du.rechunk(written_ds, chunk_sizes=CHUNK_SIZES)
+    output_store = du.get_output_store(output_path, CONTRIBUTOR_DATA['name'])
+    data_ids = output_store.list_data_ids()
+    data_ids.sort()
 
-    # output_store.write_data(
-    #     written_ds,
-    #     'c_gls_LWQ300_201604260000_black_OLCI_V1.4.0_owt.levels',
-    #     writer_id=f'dataset:levels:{fs_type}'
-    # )
+    fs_type = 's3' if output_path is None else 'file'
 
-    # output_store.delete_data(
-    #     'c_gls_LWQ300_201604260000_black_OLCI_V1.4.0_owt.zarr'
-    # )
+    for i, data_id in enumerate(data_ids):
+        print(f'Opening {data_id} ...')
+        written_ds = output_store.open_data(data_id)
+        written_ds = du.adjust_metadata(written_ds, CONTRIBUTOR_DATA)
+        written_ds = du.rechunk(written_ds, chunk_sizes=CHUNK_SIZES)
+        print(f'Appending {data_id} ...')
+        if i == 0:
+            output_store.write_data(
+                written_ds,
+                'c_gls_LWQ300_black_OLCI_V1.4.0_owt.zarr',
+                replace=True,
+                writer_id=f'dataset:zarr:{fs_type}')
+        else:
+            output_store.write_data(
+                written_ds,
+                'c_gls_LWQ300_black_OLCI_V1.4.0_owt.zarr',
+                replace=False,
+                append_dim='time',
+                writer_id='dataset:zarr:file'
+            )
+
+    print('Convert to levels')
+
+    final_zarr_ds = output_store.open_data(
+        'c_gls_LWQ300_black_OLCI_V1.4.0_owt.zarr'
+    )
+
+    output_store.write_data(
+        final_zarr_ds,
+        'c_gls_LWQ300_201604260000_black_OLCI_V1.4.0_owt.levels',
+        writer_id=f'dataset:levels:{fs_type}'
+    )
+
+    output_store.delete_data(
+        'c_gls_LWQ300_201604260000_black_OLCI_V1.4.0_owt.zarr'
+    )
 
 
 if __name__ == "__main__":
