@@ -27,8 +27,14 @@ def adjust_metadata(ds: xr.Dataset, contributor_data: dict) -> xr.Dataset:
         ds.attrs['geospatial_lon_min'] = ds.lon[0].values
         ds.attrs['geospatial_lon_max'] = ds.lon[-1].values
     if 'lat' in ds:
-        ds.attrs['geospatial_lat_min'] = ds.lat[0].values
-        ds.attrs['geospatial_lat_min'] = ds.lat[-1].values
+        first = ds.lat[0].values
+        last = ds.lat[-1].values
+        if first < last:
+            ds.attrs['geospatial_lat_min'] = first
+            ds.attrs['geospatial_lat_max'] = last
+        else:
+            ds.attrs['geospatial_lat_min'] = last
+            ds.attrs['geospatial_lat_max'] = first
     if 'time' in ds:
         ds.attrs['time_coverage_start'] = get_formatted_time(ds.time[0].values)
         ds.attrs['time_coverage_end'] = get_formatted_time(ds.time[-1].values)
