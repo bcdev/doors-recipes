@@ -15,29 +15,29 @@
 
 | Variable | Identifier | Units |
 | ---- | ---- | ---- |
-| [\[none\]](#OWT\_1) | OWT\_1 | \[none\] |
-| [\[none\]](#OWT\_10) | OWT\_10 | \[none\] |
-| [\[none\]](#OWT\_11) | OWT\_11 | \[none\] |
-| [\[none\]](#OWT\_12) | OWT\_12 | \[none\] |
-| [\[none\]](#OWT\_13) | OWT\_13 | \[none\] |
-| [\[none\]](#OWT\_14) | OWT\_14 | \[none\] |
-| [\[none\]](#OWT\_15) | OWT\_15 | \[none\] |
-| [\[none\]](#OWT\_16) | OWT\_16 | \[none\] |
-| [\[none\]](#OWT\_17) | OWT\_17 | \[none\] |
-| [\[none\]](#OWT\_18) | OWT\_18 | \[none\] |
-| [\[none\]](#OWT\_2) | OWT\_2 | \[none\] |
-| [\[none\]](#OWT\_3) | OWT\_3 | \[none\] |
-| [\[none\]](#OWT\_4) | OWT\_4 | \[none\] |
-| [\[none\]](#OWT\_5) | OWT\_5 | \[none\] |
-| [\[none\]](#OWT\_6) | OWT\_6 | \[none\] |
-| [\[none\]](#OWT\_7) | OWT\_7 | \[none\] |
-| [\[none\]](#OWT\_8) | OWT\_8 | \[none\] |
-| [\[none\]](#OWT\_9) | OWT\_9 | \[none\] |
-| [\[none\]](#dominant\_OWT) | dominant\_OWT | \[none\] |
+| [Optical Water Type 1](#OWT\_1) | OWT\_1 | \[none\] |
+| [Optical Water Type 10](#OWT\_10) | OWT\_10 | \[none\] |
+| [Optical Water Type 11](#OWT\_11) | OWT\_11 | \[none\] |
+| [Optical Water Type 12](#OWT\_12) | OWT\_12 | \[none\] |
+| [Optical Water Type 13](#OWT\_13) | OWT\_13 | \[none\] |
+| [Optical Water Type 14](#OWT\_14) | OWT\_14 | \[none\] |
+| [Optical Water Type 15](#OWT\_15) | OWT\_15 | \[none\] |
+| [Optical Water Type 16](#OWT\_16) | OWT\_16 | \[none\] |
+| [Optical Water Type 17](#OWT\_17) | OWT\_17 | \[none\] |
+| [Optical Water Type 18](#OWT\_18) | OWT\_18 | \[none\] |
+| [Optical Water Type 2](#OWT\_2) | OWT\_2 | \[none\] |
+| [Optical Water Type 3](#OWT\_3) | OWT\_3 | \[none\] |
+| [Optical Water Type 4](#OWT\_4) | OWT\_4 | \[none\] |
+| [Optical Water Type 5](#OWT\_5) | OWT\_5 | \[none\] |
+| [Optical Water Type 6](#OWT\_6) | OWT\_6 | \[none\] |
+| [Optical Water Type 7](#OWT\_7) | OWT\_7 | \[none\] |
+| [Optical Water Type 8](#OWT\_8) | OWT\_8 | \[none\] |
+| [Optical Water Type 9](#OWT\_9) | OWT\_9 | \[none\] |
+| [Dominant Optical Water Type](#dominant\_OWT) | dominant\_OWT | \[none\] |
 
 ## Full variable metadata
 
-### <a name="OWT_1"></a>None
+### <a name="OWT_1"></a>Optical Water Type 1
 
 | Field | Value |
 | ---- | ---- |
@@ -72,7 +72,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_10"></a>None
+### <a name="OWT_10"></a>Optical Water Type 10
 
 | Field | Value |
 | ---- | ---- |
@@ -107,7 +107,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_11"></a>None
+### <a name="OWT_11"></a>Optical Water Type 11
 
 | Field | Value |
 | ---- | ---- |
@@ -142,7 +142,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_12"></a>None
+### <a name="OWT_12"></a>Optical Water Type 12
 
 | Field | Value |
 | ---- | ---- |
@@ -177,7 +177,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_13"></a>None
+### <a name="OWT_13"></a>Optical Water Type 13
 
 | Field | Value |
 | ---- | ---- |
@@ -212,7 +212,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_14"></a>None
+### <a name="OWT_14"></a>Optical Water Type 14
 
 | Field | Value |
 | ---- | ---- |
@@ -247,7 +247,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_15"></a>None
+### <a name="OWT_15"></a>Optical Water Type 15
 
 | Field | Value |
 | ---- | ---- |
@@ -282,7 +282,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_16"></a>None
+### <a name="OWT_16"></a>Optical Water Type 16
 
 | Field | Value |
 | ---- | ---- |
@@ -317,7 +317,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_17"></a>None
+### <a name="OWT_17"></a>Optical Water Type 17
 
 | Field | Value |
 | ---- | ---- |
@@ -352,7 +352,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_18"></a>None
+### <a name="OWT_18"></a>Optical Water Type 18
 
 | Field | Value |
 | ---- | ---- |
@@ -387,7 +387,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_2"></a>None
+### <a name="OWT_2"></a>Optical Water Type 2
 
 | Field | Value |
 | ---- | ---- |
@@ -422,7 +422,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_3"></a>None
+### <a name="OWT_3"></a>Optical Water Type 3
 
 | Field | Value |
 | ---- | ---- |
@@ -457,7 +457,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_4"></a>None
+### <a name="OWT_4"></a>Optical Water Type 4
 
 | Field | Value |
 | ---- | ---- |
@@ -492,7 +492,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_5"></a>None
+### <a name="OWT_5"></a>Optical Water Type 5
 
 | Field | Value |
 | ---- | ---- |
@@ -527,7 +527,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_6"></a>None
+### <a name="OWT_6"></a>Optical Water Type 6
 
 | Field | Value |
 | ---- | ---- |
@@ -562,7 +562,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_7"></a>None
+### <a name="OWT_7"></a>Optical Water Type 7
 
 | Field | Value |
 | ---- | ---- |
@@ -597,7 +597,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_8"></a>None
+### <a name="OWT_8"></a>Optical Water Type 8
 
 | Field | Value |
 | ---- | ---- |
@@ -632,7 +632,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="OWT_9"></a>None
+### <a name="OWT_9"></a>Optical Water Type 9
 
 | Field | Value |
 | ---- | ---- |
@@ -667,7 +667,7 @@
 | valid\_max | 1.0 |
 | valid\_min | 0.0 |
 
-### <a name="dominant_OWT"></a>None
+### <a name="dominant_OWT"></a>Dominant Optical Water Type
 
 | Field | Value |
 | ---- | ---- |
