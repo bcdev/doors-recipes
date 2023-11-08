@@ -83,26 +83,15 @@ This collection definition specifies a collection's crs and the names and data
 types of its properties.
 An example of such a definition is:
 
-> collections {
-> 
->     "my_collection": {
-> 
->       "crs": "EPSG:4326",
-> 
->       "properties": {
-> 
->         "Station": "text",
-> 
->         "Label": "text",
-> 
->         "Temperature [°C]": "float",
-> 
->         "time": "text",
-> 
->         "Measurement Count": "integer"
-> 
+>     collections {
+>       "my_collection": {
+>         "crs": "EPSG:4326",
+>         "properties": {
+>           "Station": "text",
+>           "Label": "text",
+>           "Temperature [°C]": "float",
+>           "time": "text",
+>           "Measurement Count": "integer" 
+>         }
 >       }
-> 
 >     }
-> 
->}
