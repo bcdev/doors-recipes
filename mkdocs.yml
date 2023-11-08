@@ -25,6 +25,8 @@ nav:
     - DOORS UPC Dniester Coastal (u values) Data Cube: datasets/coawst_his_sample_u.md
     - DOORS UPC Dniester Coastal (v values) Data Cube: datasets/coawst_his_sample_v.md
     - HR-OC coastal monthly Black Sea Data Cube: dataset/hroc-l4m-blk-100m-v1.md
+  - In-Situ Data:
+    - In-Situ Data Conventions: insitu/in-situ_data_conventions.md
 
 markdown_extensions:
   - toc:
