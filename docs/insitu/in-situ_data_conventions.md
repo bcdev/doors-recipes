@@ -50,8 +50,6 @@ Each property is defined by a name and a data type.
 - Likewise, you may optionally include text labels to uniquely identify entries.
   Label and group properties are not mutually exclusive.
 
-TODO: Show collection definition 
-
 ### Geometry Requirements
 
 - The input data must contain spatial information per entry.
