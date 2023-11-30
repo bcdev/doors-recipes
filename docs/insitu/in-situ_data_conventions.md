@@ -72,6 +72,11 @@ datetime object.
 Examples for acceptable formats for temporal information are:
 - 'yyyy-mm-dd hh:mm:dd', e.g., '2023-11-08 13:35:50'
 - 'yyyy-mm-dd', e.g., '2023-11-08'
+If you do not specify date and time in the same column (but rather in two
+different columns) the system of systems currently will only recognise one
+of them.
+To specify your time information, please use any of the following column 
+names: ``time`` , ``timestamp``, ``date``, ``datetime``, ``date-time``. 
 
 Anyway, providing temporal information is optional.
 
