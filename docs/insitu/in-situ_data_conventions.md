@@ -25,6 +25,10 @@ A collection consists of properties, which correspond to the columns of a csv
 file or the attributes of a shape file.
 Each property is defined by a name and a data type.
 
+The actual ingestion is made through python code, usually Jupyter notebooks.
+For some of the requirements listed here, it is well possible to format the 
+data after reading it in.
+
 ## Input Data Requirements
 
 ### General
