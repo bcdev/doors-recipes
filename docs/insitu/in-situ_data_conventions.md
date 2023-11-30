@@ -27,7 +27,7 @@ Each property is defined by a name and a data type.
 
 The actual ingestion is made through python code, usually Jupyter notebooks.
 For some of the requirements listed here, it is well possible to format the 
-data after reading it in.
+data between reading it from the file and writing it to the geoDB.
 
 ## Input Data Requirements
 
