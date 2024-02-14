@@ -1,6 +1,7 @@
 # IDEs
 /.idea/
 /.vscode/
+/.run/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
