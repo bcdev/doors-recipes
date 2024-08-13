@@ -24,9 +24,10 @@
 
 ### CMEMS
 
--   [CMEMS CHL Black Sea Data Cube](CMEMS_OC_BS_4.zarr.md)
--   [CMEMS Salinity daily mean Black Sea Data Cube](bs-cmcc-sal-rean-d_1653925405736.zarr.md)
--   [CMEMS SST Black Sea Data Cube](cmems_SST_BS_SST_L4_REP_OBSERVATIONS_010_022_1653926779692.zarr.md)
+- [CMEMS CHL Black Sea](CMEMS_CHL_1x790x1101_v2.zarr.md)
+- [CMEMS Salinity Black Sea Analysis and Forecast](CMEMS_SAL_BS_Forecast-1x261x591_v3.zarr.md)
+- [CMEMS Salinity Black Sea Reanalysis](CMEMS_SAL_BS-1x215x395.zarr.md)
+- [CMEMS SST Black Sea](CMEMS_SST_BS_SST_L4_REP_OBSERVATIONS_010_022_1x200x321_v3.zarr.md)
 
 ### HROC
 
