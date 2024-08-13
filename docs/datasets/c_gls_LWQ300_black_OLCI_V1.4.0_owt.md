@@ -3,7 +3,7 @@
 ## Basic information
 
 ![Bounding box map](c_gls_LWQ300_black_OLCI_V1.4.0_owt.png)<br>
-<span style="font-size: x-small">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
+<span style="font-size: x-small">Map tiles and Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
 
 | Parameter | Value |
 | ---- | ---- |
@@ -17,26 +17,26 @@
 
 ## Variable list
 
-| Variable | Identifier | Units |
-| ---- | ---- | ---- |
-| [Optical Water Type 1](#OWT\_1) | OWT\_1 | \[none\] |
-| [Optical Water Type 10](#OWT\_10) | OWT\_10 | \[none\] |
-| [Optical Water Type 11](#OWT\_11) | OWT\_11 | \[none\] |
-| [Optical Water Type 12](#OWT\_12) | OWT\_12 | \[none\] |
-| [Optical Water Type 13](#OWT\_13) | OWT\_13 | \[none\] |
-| [Optical Water Type 14](#OWT\_14) | OWT\_14 | \[none\] |
-| [Optical Water Type 15](#OWT\_15) | OWT\_15 | \[none\] |
-| [Optical Water Type 16](#OWT\_16) | OWT\_16 | \[none\] |
-| [Optical Water Type 17](#OWT\_17) | OWT\_17 | \[none\] |
-| [Optical Water Type 18](#OWT\_18) | OWT\_18 | \[none\] |
-| [Optical Water Type 2](#OWT\_2) | OWT\_2 | \[none\] |
-| [Optical Water Type 3](#OWT\_3) | OWT\_3 | \[none\] |
-| [Optical Water Type 4](#OWT\_4) | OWT\_4 | \[none\] |
-| [Optical Water Type 5](#OWT\_5) | OWT\_5 | \[none\] |
-| [Optical Water Type 6](#OWT\_6) | OWT\_6 | \[none\] |
-| [Optical Water Type 7](#OWT\_7) | OWT\_7 | \[none\] |
-| [Optical Water Type 8](#OWT\_8) | OWT\_8 | \[none\] |
-| [Optical Water Type 9](#OWT\_9) | OWT\_9 | \[none\] |
+| Variable                                      | Identifier | Units |
+|-----------------------------------------------| ---- | ---- |
+| [Optical Water Type 1](#OWT\_1)               | OWT\_1 | \[none\] |
+| [Optical Water Type 10](#OWT\_10)             | OWT\_10 | \[none\] |
+| [Optical Water Type 11](#OWT\_11)             | OWT\_11 | \[none\] |
+| [Optical Water Type 12](#OWT\_12)             | OWT\_12 | \[none\] |
+| [Optical Water Type 13](#OWT\_13)             | OWT\_13 | \[none\] |
+| [Optical Water Type 14](#OWT\_14)             | OWT\_14 | \[none\] |
+| [Optical Water Type 15](#OWT\_15)             | OWT\_15 | \[none\] |
+| [Optical Water Type 16](#OWT\_16)             | OWT\_16 | \[none\] |
+| [Optical Water Type 17](#OWT\_17)             | OWT\_17 | \[none\] |
+| [Optical Water Type 18](#OWT\_18)             | OWT\_18 | \[none\] |
+| [Optical Water Type 2](#OWT\_2)               | OWT\_2 | \[none\] |
+| [Optical Water Type 3](#OWT\_3)               | OWT\_3 | \[none\] |
+| [Optical Water Type 4](#OWT\_4)               | OWT\_4 | \[none\] |
+| [Optical Water Type 5](#OWT\_5)               | OWT\_5 | \[none\] |
+| [Optical Water Type 6](#OWT\_6)               | OWT\_6 | \[none\] |
+| [Optical Water Type 7](#OWT\_7)               | OWT\_7 | \[none\] |
+| [Optical Water Type 8](#OWT\_8)               | OWT\_8 | \[none\] |
+| [Optical Water Type 9](#OWT\_9)               | OWT\_9 | \[none\] |
 | [Dominant Optical Water Type](#dominant\_OWT) | dominant\_OWT | \[none\] |
 
 ## Full variable metadata

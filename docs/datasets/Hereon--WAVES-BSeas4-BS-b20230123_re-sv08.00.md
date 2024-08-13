@@ -3,7 +3,7 @@
 ## Basic information
 
 ![Bounding box map](Hereon--WAVES-BSeas4-BS-b20230123_re-sv08.00.png)<br>
-<span style="font-size: x-small">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
+<span style="font-size: x-small">Map tiles and Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
 
 | Parameter | Value |
 | ---- | ---- |
@@ -127,5 +127,5 @@
 | time\_coverage\_end | 2021\-11\-30T23:00:00 |
 | time\_coverage\_start | 2021\-11\-01T00:00:00 |
 | time\_period | 1H |
-| title | Wave Products \(2D\) \- Instantaneous Field |
+| title | DOORS Hereon Wave Products \(2D\) \- Instantaneous Field |
 
