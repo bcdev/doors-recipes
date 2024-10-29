@@ -2,6 +2,9 @@ import numpy as np
 from typing import Dict
 import xarray as xr
 
+from xcube.core.gridmapping import GridMapping
+from xcube.core.subsampling import get_dataset_agg_methods
+from xcube.core.subsampling import subsample_dataset
 from zappend.api import SliceSource
 
 from constants import CHUNK_CONFIGS
@@ -11,13 +14,21 @@ from datasetretriever import get_cmems_dataset
 
 
 class CmemsSliceSource(SliceSource):
-    def __init__(self, update_config: Dict, path: str, chunks: Dict, timestamp: str):
+    def __init__(
+        self,
+        update_config: Dict,
+        path: str,
+        chunks: Dict,
+        timestamp: str,
+        level: int = -1,
+    ):
         print(f"Processing timestamp {timestamp}")
         self._update_config = update_config
         self._path = path
         self._chunks = chunks
         self._timestamp = timestamp
         self._data_set = None
+        self._level = level
 
     def get_dataset(self) -> xr.Dataset:
         self._data_set = get_cmems_dataset(self._update_config, self._path)
@@ -29,6 +40,7 @@ class CmemsSliceSource(SliceSource):
         self._data_set = self._adjust_dtype(self._data_set, self._update_config)
         self._data_set = self._reduce_dim(self._data_set, self._update_config)
         self._data_set = self._maybe_convert_times(self._data_set, self._update_config)
+        self._data_set = self._subsample_dataset(self._data_set, self._level)
         self._data_set = self._chunk_ds(self._data_set, self._chunks)
         self._data_set = self._add_attributes(self._data_set, self._update_config)
         return self._data_set
@@ -86,6 +98,22 @@ class CmemsSliceSource(SliceSource):
             for attr_name, attr_value in attr_dict.items():
                 ds[var_name].attrs[attr_name] = attr_value
         return ds
+
+    @staticmethod
+    def _subsample_dataset(ds: xr.Dataset, level: int) -> xr.Dataset:
+        if level < 1:
+            return ds
+        grid_mapping = GridMapping.from_dataset(ds)
+        xy_dim_names = grid_mapping.xy_dim_names
+        agg_methods = get_dataset_agg_methods(ds, xy_dim_names=xy_dim_names)
+        subsample_dataset_kwargs = dict(
+            xy_dim_names=xy_dim_names, agg_methods=agg_methods
+        )
+        return subsample_dataset(
+            ds,
+            step=2**level,
+            **subsample_dataset_kwargs,
+        )
 
     @staticmethod
     def _chunk_ds(ds: xr.Dataset, chunks: Dict) -> xr.Dataset:
@@ -165,13 +193,36 @@ class SalinityTimeOptSliceSource(CmemsSliceSource):
         )
 
 
-class HrocBaseSliceSource(CmemsSliceSource):
+class HrocBaseSliceSource1(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
             UPDATE_CONFIGS["hroc"],
             UPDATE_CONFIGS["hroc"]["path_to_base"],
             CHUNK_CONFIGS["hroc"]["base_chunking"],
             timestamp,
+            0,
+        )
+
+
+class HrocBaseSliceSource2(CmemsSliceSource):
+    def __init__(self, timestamp: str):
+        super().__init__(
+            UPDATE_CONFIGS["hroc"],
+            UPDATE_CONFIGS["hroc"]["path_to_base"],
+            CHUNK_CONFIGS["hroc"]["base_chunking"],
+            timestamp,
+            1,
+        )
+
+
+class HrocBaseSliceSource3(CmemsSliceSource):
+    def __init__(self, timestamp: str):
+        super().__init__(
+            UPDATE_CONFIGS["hroc"],
+            UPDATE_CONFIGS["hroc"]["path_to_base"],
+            CHUNK_CONFIGS["hroc"]["base_chunking"],
+            timestamp,
+            2,
         )
 
 

@@ -9,9 +9,12 @@ from constants import CHUNK_CONFIGS
 from constants import UPDATE_CONFIGS
 from constants import S3_BUCKET
 from datasetretriever import get_cmems_dataset
+from datasetretriever import get_s3_dataset
 from slicesources import ChlBaseSliceSource
 from slicesources import ChlTimeOptSliceSource
-from slicesources import HrocBaseSliceSource
+from slicesources import HrocBaseSliceSource1
+from slicesources import HrocBaseSliceSource2
+from slicesources import HrocBaseSliceSource3
 from slicesources import HrocTimeOptSliceSource
 from slicesources import SalinityBaseSliceSource
 from slicesources import SalinityTimeOptSliceSource
@@ -33,7 +36,11 @@ _SLICE_SOURCE_CONFIGS = {
         "time_opt_slice_source": SalinityTimeOptSliceSource,
     },
     "hroc": {
-        "base_slice_source": HrocBaseSliceSource,
+        "base_slice_sources": {
+            0: HrocBaseSliceSource1,
+            1: HrocBaseSliceSource2,
+            2: HrocBaseSliceSource3,
+        },
         "time_opt_slice_source": HrocTimeOptSliceSource,
     },
 }
@@ -69,12 +76,19 @@ def _update_cubes():
 
 
 def _update_base_cube(dataset_id: str, update_config: Dict):
-    _update_cube(
-        update_config,
-        update_config["path_to_base"],
-        _SLICE_SOURCE_CONFIGS[dataset_id]["base_slice_source"],
-        CHUNK_CONFIGS[dataset_id]["base_chunking"],
-    )
+    if update_config["path_to_base"].endswith(".levels"):
+        _update_levels_cube(
+            update_config,
+            CHUNK_CONFIGS[dataset_id]["base_chunking"],
+            _SLICE_SOURCE_CONFIGS[dataset_id]["base_slice_sources"],
+        )
+    else:
+        _update_cube(
+            update_config,
+            update_config["path_to_base"],
+            _SLICE_SOURCE_CONFIGS[dataset_id]["base_slice_source"],
+            CHUNK_CONFIGS[dataset_id]["base_chunking"],
+        )
 
 
 def _update_time_opt_cube(dataset_id: str, update_config: Dict):
@@ -105,6 +119,33 @@ def _update_cube(
         append_dim="time",
         variables=base_var_chunks_dict,
     )
+
+
+def _update_levels_cube(
+    update_config: Dict, chunks: Dict[str, int], slice_sources: Dict[int, SliceSource]
+):
+    base_path = update_config["path_to_base"]
+    cmems_ds = get_cmems_dataset(update_config, base_path)
+    if cmems_ds is None:
+        print("No newer timestamps detected")
+        return
+    slice_stamps = list(cmems_ds.time.values)
+    slice_stamps = [np.datetime_as_string(ss, unit="D") for ss in slice_stamps]
+
+    num_levels = get_s3_dataset(update_config["path_to_base"]).num_levels
+
+    base_var_chunks_dict = _get_var_chunks_dict(update_config, chunks)
+    for n in num_levels:
+        path = f"{base_path}/{n}.zarr"
+        print(f"Writing to {path}")
+        slice_source = slice_sources[n]
+        zappend(
+            slice_stamps,
+            target_dir=f"s3://{S3_BUCKET}/{path}",
+            slice_source=slice_source,
+            append_dim="time",
+            variables=base_var_chunks_dict,
+        )
 
 
 if __name__ == "__main__":

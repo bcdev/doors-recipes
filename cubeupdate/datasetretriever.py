@@ -14,11 +14,18 @@ _CMEMS_STORE = new_data_store("cmems")
 _CMEMS_DATASETS = dict()
 
 
+def get_s3_dataset(path: str):
+    if path in _S3_STORE.list_data_ids():
+        return _S3_STORE.open_data(path)
+
+
 def get_cmems_dataset(update_config: Dict, path: str):
     if path in _CMEMS_DATASETS:
         return _CMEMS_DATASETS[path]
     if path in _S3_STORE.list_data_ids():
         ds = _S3_STORE.open_data(path)
+        if path.endswith(".levels"):
+            ds = ds.get_dataset(0)
         last_base_timestamp = Timestamp(ds.time[-1].values).to_pydatetime()
         if update_config["time_frequency"] == "D":
             delta = relativedelta(days=1)
