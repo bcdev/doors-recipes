@@ -1,38 +1,34 @@
+import numpy as np
 from typing import Dict
 import xarray as xr
 
-from xcube.core.store import new_data_store
 from zappend.api import SliceSource
 
 from constants import CHUNK_CONFIGS
 from constants import UPDATE_CONFIGS
 
-_STORE = new_data_store("cmems")
-_DATASETS = dict()
-
-
-def _get_dataset(dataset_id: str, update_config: Dict):
-    if dataset_id not in _DATASETS:
-        data_id = update_config["CMEMS_store_data_id"]
-        _DATASETS[dataset_id] = _STORE.open_data(data_id)
-    return _DATASETS[dataset_id]
+from datasetretriever import get_cmems_dataset
 
 
 class CmemsSliceSource(SliceSource):
-    def __init__(self, dataset_id: str, update_config: Dict, chunks: Dict, timestamp: str):
-        self._dataset_id = dataset_id
+    def __init__(self, update_config: Dict, path: str, chunks: Dict, timestamp: str):
+        print(f"Processing timestamp {timestamp}")
         self._update_config = update_config
+        self._path = path
         self._chunks = chunks
         self._timestamp = timestamp
         self._data_set = None
 
     def get_dataset(self) -> xr.Dataset:
-        self._data_set = _get_dataset(self._dataset_id, self._update_config)
+        self._data_set = get_cmems_dataset(self._update_config, self._path)
         self._data_set = self._data_set.sel(time=self._timestamp, method="nearest")
+        for var in self._data_set.data_vars:
+            self._data_set[var] = self._data_set[var].expand_dims("time")
         self._data_set = self._rename_vars(self._data_set, self._update_config)
         self._data_set = self._subset_vars(self._data_set, self._update_config)
         self._data_set = self._adjust_dtype(self._data_set, self._update_config)
         self._data_set = self._reduce_dim(self._data_set, self._update_config)
+        self._data_set = self._maybe_convert_times(self._data_set, self._update_config)
         self._data_set = self._chunk_ds(self._data_set, self._chunks)
         self._data_set = self._add_attributes(self._data_set, self._update_config)
         return self._data_set
@@ -49,16 +45,32 @@ class CmemsSliceSource(SliceSource):
 
     @staticmethod
     def _adjust_dtype(ds: xr.Dataset, update_config: Dict) -> xr.Dataset:
-        for var_name, dtype in update_config.get("dtype_adjustments", {}):
+        for var_name, dtype in update_config.get("dtype_adjustments", {}).items():
             ds[var_name] = ds[var_name].astype(dtype)
         return ds
 
     @staticmethod
     def _reduce_dim(ds: xr.Dataset, update_config: Dict) -> xr.Dataset:
-        for dim_name, dim_index in update_config:
+        for dim_name, dim_index in update_config.get(
+            "dimensionality_reduction", {}
+        ).items():
             ds = ds.isel({dim_name: dim_index})
             ds = ds.drop_vars(dim_name)
-            ds = ds.drop_dims(dim_name)
+        return ds
+
+    @staticmethod
+    def _maybe_convert_times(ds: xr.Dataset, update_config: Dict) -> xr.Dataset:
+        if update_config.get("reference_time"):
+            reference_time = np.datetime64(update_config.get("reference_time"), "D")
+            time_in_days = (ds["time"] - reference_time) // np.timedelta64(1, "D")
+            ds = ds.assign_coords(time=time_in_days)
+            ds["time"].encoding.update(
+                {
+                    "units": f"days since {update_config.get("reference_time")}",
+                    "calendar": "proleptic_gregorian",
+                    "dtype": "int64",
+                }
+            )
         return ds
 
     @staticmethod
@@ -66,10 +78,12 @@ class CmemsSliceSource(SliceSource):
         ds.attrs["title"] = update_config["title"]
         ds.attrs["base_dataset"] = update_config["CMEMS_base_dataset"]
         ds.attrs["base_data_id"] = update_config["CMEMS_store_data_id"]
-        for attr_name, attr_value in update_config.get("additional_attrs", {}):
+        for attr_name, attr_value in update_config.get("additional_attrs", {}).items():
             ds.attrs[attr_name] = attr_value
-        for var_name, attr_dict in update_config.get("additional_var_attrs", {}):
-            for attr_name, attr_value in attr_dict:
+        for var_name, attr_dict in update_config.get(
+            "additional_var_attrs", {}
+        ).items():
+            for attr_name, attr_value in attr_dict.items():
                 ds[var_name].attrs[attr_name] = attr_value
         return ds
 
@@ -77,9 +91,11 @@ class CmemsSliceSource(SliceSource):
     def _chunk_ds(ds: xr.Dataset, chunks: Dict) -> xr.Dataset:
         for var_name in ds.data_vars:
             if var_name != "crs":
-                if ('time' in ds[var_name].dims and
-                        'lat' in ds[var_name].dims and
-                        'lon' not in ds[var_name].dims):
+                if (
+                    "time" in ds[var_name].dims
+                    and "lat" in ds[var_name].dims
+                    and "lon" in ds[var_name].dims
+                ):
                     ds[var_name] = ds[var_name].chunk(chunks)
         return ds
 
@@ -91,60 +107,61 @@ class CmemsSliceSource(SliceSource):
 class ChlBaseSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
-            "chl",
             UPDATE_CONFIGS["chl"],
+            UPDATE_CONFIGS["chl"]["path_to_base"],
             CHUNK_CONFIGS["chl"]["base_chunking"],
-            timestamp
+            timestamp,
         )
 
 
 class ChlTimeOptSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
-            "chl",
             UPDATE_CONFIGS["chl"],
+            UPDATE_CONFIGS["chl"]["path_to_time_opt"],
             CHUNK_CONFIGS["chl"]["time_opt_chunking"],
-            timestamp
+            timestamp,
         )
 
 
 class SstBaseSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
-            "sst",
             UPDATE_CONFIGS["sst"],
+            UPDATE_CONFIGS["sst"]["path_to_base"],
             CHUNK_CONFIGS["sst"]["base_chunking"],
-            timestamp
+            timestamp,
         )
 
 
 class SstTimeOptSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
-            "sst",
             UPDATE_CONFIGS["sst"],
+            UPDATE_CONFIGS["sst"]["path_to_time_opt"],
             CHUNK_CONFIGS["sst"]["time_opt_chunking"],
-            timestamp
+            timestamp,
         )
 
 
 class SalinityBaseSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
-            "salinity",
             UPDATE_CONFIGS["salinity"],
+            UPDATE_CONFIGS["salinity"]["path_to_base"],
             CHUNK_CONFIGS["salinity"]["base_chunking"],
-            timestamp
+            timestamp,
         )
 
 
 class SalinityTimeOptSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
-            "salinity",
+            # "salinity",
             UPDATE_CONFIGS["salinity"],
+            UPDATE_CONFIGS["salinity"]["path_to_time_opt"],
             CHUNK_CONFIGS["salinity"]["time_opt_chunking"],
-            timestamp
+            timestamp,
         )
 
 
@@ -152,8 +169,9 @@ class HrocBaseSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
             UPDATE_CONFIGS["hroc"],
+            UPDATE_CONFIGS["hroc"]["path_to_base"],
             CHUNK_CONFIGS["hroc"]["base_chunking"],
-            timestamp
+            timestamp,
         )
 
 
@@ -161,6 +179,7 @@ class HrocTimeOptSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
             UPDATE_CONFIGS["hroc"],
+            UPDATE_CONFIGS["hroc"]["path_to_time_opt"],
             CHUNK_CONFIGS["hroc"]["time_opt_chunking"],
-            timestamp
+            timestamp,
         )
