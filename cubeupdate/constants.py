@@ -18,7 +18,7 @@ CHUNK_CONFIGS = {
     },
     "hroc": {
         "base_chunking": {"time": 1, "lat": 2160, "lon": 1512},
-        "time_opt_chunking": {"time": 1704, "lat": 60, "lon": 56},
+        "time_opt_chunking": {"time": 426, "lat": 60, "lon": 56},
     },
 }
 
@@ -61,7 +61,7 @@ UPDATE_CONFIGS = {
     "hroc": {
         "title": "HR-OC Coastal Daily Black Sea",
         "path_to_base": "CMEMS_OC_HR_BS-1x2160x1512_v1.levels",
-        "path_to_time_opt": "CMEMS_OC_HR_BS-1704x60x56_v1.zarr",
+        "path_to_time_opt": "CMEMS_OC_HR_BS-420x60x56_v2.zarr",
         "CMEMS_base_dataset": "OCEANCOLOUR_BLK_BGC_HR_L4_NRT_009_212",
         "CMEMS_store_data_id": HROC_DATA_ID,
         "renamings": {"latitude": "lat", "longitude": "lon"},
