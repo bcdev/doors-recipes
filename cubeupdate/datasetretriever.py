@@ -53,7 +53,18 @@ def get_cmems_dataset(update_config: Dict, path: str):
         else:
             _CMEMS_DATASETS[path] = None
     else:
-        _CMEMS_DATASETS[path] = _CMEMS_STORE.open_data(
-            data_id=update_config["CMEMS_store_data_id"]
-        )
+        start_time = update_config.get("start_time")
+        if start_time is not None:
+            cmems_desc = _CMEMS_STORE.describe_data(
+                data_id=update_config["CMEMS_store_data_id"]
+            )
+            last_cmems_timestamp = cmems_desc.time_range[1]
+            _CMEMS_DATASETS[path] = _CMEMS_STORE.open_data(
+                data_id=update_config["CMEMS_store_data_id"],
+                time_range=[start_time, last_cmems_timestamp],
+            )
+        else:
+            _CMEMS_DATASETS[path] = _CMEMS_STORE.open_data(
+                data_id=update_config["CMEMS_store_data_id"]
+            )
     return _CMEMS_DATASETS[path]
