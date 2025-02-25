@@ -135,7 +135,7 @@ def _update_levels_cube(
     num_levels = get_s3_dataset(update_config["path_to_base"]).num_levels
 
     base_var_chunks_dict = _get_var_chunks_dict(update_config, chunks)
-    for n in num_levels:
+    for n in range(num_levels):
         path = f"{base_path}/{n}.zarr"
         print(f"Writing to {path}")
         slice_source = slice_sources[n]
