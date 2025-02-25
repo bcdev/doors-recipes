@@ -33,3 +33,12 @@ also run on xarray datasets.
 The single parameter is an optional output path you might indicate to where the
 documents shall be written.
 If omitted, they are written to the docgen folder.
+
+`dockerimage` contains a shell script and a dockerfile from which an image for a 
+doors server can be built. It contains versions of xcube, xcube-cmems, geodb,
+geodb-places, and vdc-places. 
+Always check the latest tag pushed to the quay.io and then increment the version tag for the new image by providing it 
+as a script argument.
+
+set `ARG CACHE_ID=1` or any random number if you want to break the cache because you want fresh code from GitHub repo.
+
