@@ -75,14 +75,19 @@ class CmemsSliceSource(SliceSource):
         if update_config.get("reference_time"):
             reference_time = np.datetime64(update_config.get("reference_time"), "D")
             time_in_days = (ds["time"] - reference_time) // np.timedelta64(1, "D")
+            attrs = ds["time"].attrs
+            if "unit_long" in attrs:
+                attrs.pop("unit_long")
+            encoding = {
+                "units": f"days since {update_config.get("reference_time")}",
+                "calendar": "proleptic_gregorian",
+                "dtype": "int64",
+            }
             ds = ds.assign_coords(time=time_in_days)
-            ds["time"].encoding.update(
-                {
-                    "units": f"days since {update_config.get("reference_time")}",
-                    "calendar": "proleptic_gregorian",
-                    "dtype": "int64",
-                }
-            )
+            ds["time"].attrs.update(attrs)
+            ds["time"].attrs.update(encoding)
+            ds["time"].attrs.pop("dtype")
+            ds["time"].encoding.update(encoding)
         return ds
 
     @staticmethod
