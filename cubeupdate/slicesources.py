@@ -176,27 +176,45 @@ class SstTimeOptSliceSource(CmemsSliceSource):
             timestamp,
         )
 
-
-class SalinityBaseSliceSource(CmemsSliceSource):
+class SalinityReanalysisBaseSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
-            UPDATE_CONFIGS["salinity"],
-            UPDATE_CONFIGS["salinity"]["path_to_base"],
-            CHUNK_CONFIGS["salinity"]["base_chunking"],
+            UPDATE_CONFIGS["salinity_reanalysis"],
+            UPDATE_CONFIGS["salinity_reanalysis"]["path_to_base"],
+            CHUNK_CONFIGS["salinity_reanalysis"]["base_chunking"],
             timestamp,
         )
 
 
-class SalinityTimeOptSliceSource(CmemsSliceSource):
+class SalinityReanalysisTimeOptSliceSource(CmemsSliceSource):
     def __init__(self, timestamp: str):
         super().__init__(
             # "salinity",
-            UPDATE_CONFIGS["salinity"],
-            UPDATE_CONFIGS["salinity"]["path_to_time_opt"],
-            CHUNK_CONFIGS["salinity"]["time_opt_chunking"],
+            UPDATE_CONFIGS["salinity_reanalysis"],
+            UPDATE_CONFIGS["salinity_reanalysis"]["path_to_time_opt"],
+            CHUNK_CONFIGS["salinity_reanalysis"]["time_opt_chunking"],
             timestamp,
         )
 
+class SalinityForecastBaseSliceSource(CmemsSliceSource):
+    def __init__(self, timestamp: str):
+        super().__init__(
+            UPDATE_CONFIGS["salinity_forecast"],
+            UPDATE_CONFIGS["salinity_forecast"]["path_to_base"],
+            CHUNK_CONFIGS["salinity_forecast"]["base_chunking"],
+            timestamp,
+        )
+
+
+class SalinityForecastTimeOptSliceSource(CmemsSliceSource):
+    def __init__(self, timestamp: str):
+        super().__init__(
+            # "salinity",
+            UPDATE_CONFIGS["salinity_forecast"],
+            UPDATE_CONFIGS["salinity_forecast"]["path_to_time_opt"],
+            CHUNK_CONFIGS["salinity_forecast"]["time_opt_chunking"],
+            timestamp,
+        )
 
 class HrocBaseSliceSource1(CmemsSliceSource):
     def __init__(self, timestamp: str):

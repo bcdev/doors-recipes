@@ -16,8 +16,10 @@ from slicesources import HrocBaseSliceSource1
 from slicesources import HrocBaseSliceSource2
 from slicesources import HrocBaseSliceSource3
 from slicesources import HrocTimeOptSliceSource
-from slicesources import SalinityBaseSliceSource
-from slicesources import SalinityTimeOptSliceSource
+from slicesources import SalinityReanalysisBaseSliceSource
+from slicesources import SalinityForecastBaseSliceSource
+from slicesources import SalinityReanalysisTimeOptSliceSource
+from slicesources import SalinityForecastTimeOptSliceSource
 from slicesources import SstBaseSliceSource
 from slicesources import SstTimeOptSliceSource
 
@@ -31,9 +33,13 @@ _SLICE_SOURCE_CONFIGS = {
         "base_slice_source": SstBaseSliceSource,
         "time_opt_slice_source": SstTimeOptSliceSource,
     },
-    "salinity": {
-        "base_slice_source": SalinityBaseSliceSource,
-        "time_opt_slice_source": SalinityTimeOptSliceSource,
+    "salinity_reanalysis": {
+        "base_slice_source": SalinityReanalysisBaseSliceSource,
+        "time_opt_slice_source": SalinityReanalysisTimeOptSliceSource,
+    },
+    "salinity_forecast": {
+        "base_slice_source": SalinityForecastBaseSliceSource,
+        "time_opt_slice_source": SalinityForecastTimeOptSliceSource,
     },
     "hroc": {
         "base_slice_sources": {
