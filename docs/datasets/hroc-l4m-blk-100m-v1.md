@@ -1,5 +1,12 @@
 # HR-OC coastal monthly Black Sea
 
+## Basic information
+
+<span style="font-size: x-small">Map tiles and Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
+
+| Parameter | Value |
+| ---- | ---- |
+
 [Click here for full dataset metadata.](#full-metadata)
 
 ## Variable list
@@ -12,9 +19,24 @@
 | [Chlorophyll](#CHL) | CHL | mg m^\-3 |
 | [Suspended Particulate Matter](#SPM) | SPM | mg m^\-3 |
 | [Turbidity](#TUR) | TUR | FNU |
-| [hroc\_mask](#hroc\_mask) | hroc\_mask | \[none\] |
+| [hroc\\\\\\\_mask](#hroc\_mask) | hroc\_mask | \[none\] |
 
 ## Full variable metadata
+
+### <a name="B2"></a>B2
+
+| Field | Value |
+| ---- | ---- |
+
+### <a name="B3"></a>B3
+
+| Field | Value |
+| ---- | ---- |
+
+### <a name="B4"></a>B4
+
+| Field | Value |
+| ---- | ---- |
 
 ### <a name="CHL"></a>Chlorophyll
 
@@ -45,6 +67,11 @@
 | units | FNU |
 | valid\_max | 50 |
 | valid\_min | 0 |
+
+### <a name="hroc_mask"></a>hroc_mask
+
+| Field | Value |
+| ---- | ---- |
 
 ## <a name="full-metadata"></a>Full dataset metadata
 

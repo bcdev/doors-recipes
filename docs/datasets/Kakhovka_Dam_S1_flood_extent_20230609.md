@@ -1,5 +1,14 @@
 # Kakhovka Dam Flood Extent
 
+## Basic information
+
+<span style="font-size: x-small">Map tiles and Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
+
+| Parameter | Value |
+| ---- | ---- |
+
+[Click here for full dataset metadata.](#full-metadata)
+
 ## Variable list
 
 | Variable | Identifier | Units |

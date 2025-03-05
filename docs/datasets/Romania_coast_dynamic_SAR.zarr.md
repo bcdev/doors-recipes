@@ -1,14 +1,23 @@
-# Romania Coast Changes
+# 
+
+## Basic information
+
+<span style="font-size: x-small">Map tiles and Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
+
+| Parameter | Value |
+| ---- | ---- |
+
+[Click here for full dataset metadata.](#full-metadata)
 
 ## Variable list
 
-| Variable                                          | Identifier | Units |
-|---------------------------------------------------| ---- | ---- |
-| [Erosion and Accretion](#erosion\_and\_accretion) | erosion\_and\_accretion | dl |
+| Variable | Identifier | Units |
+| ---- | ---- | ---- |
+| [erosion\\\\\\\_and\\\\\\\_accretion](#erosion\_and\_accretion) | erosion\_and\_accretion | dl |
 
 ## Full variable metadata
 
-### <a name="erosion_and_accretion"></a>Erosion and Accretion
+### <a name="erosion_and_accretion"></a>erosion_and_accretion
 
 | Field | Value |
 | ---- | ---- |
