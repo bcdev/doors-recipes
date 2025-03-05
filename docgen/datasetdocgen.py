@@ -7,6 +7,7 @@ import sys
 import re
 import os
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import cartopy
 import cartopy.io.img_tiles
 import matplotlib.patches as patches
@@ -26,6 +27,8 @@ def create_doors_dataset_docs(output_dir: str, key: str):
         dataset = doors_store.open_data(data_id)
         try:
             base_dataset = dataset.base_dataset
+            if isinstance(base_dataset, str):
+                base_dataset = dataset
         except AttributeError:
             base_dataset = dataset
         _create_dataset_doc(base_dataset, data_id, output_dir)
@@ -38,9 +41,11 @@ def _create_dataset_doc(dataset: xr.Dataset, data_id: str, output_dir: str):
     bbox_image_path = os.path.join(output_dir, basename + ".png")
     with open(os.path.join(output_dir, output_filename), "w") as output:
         props = dataset.attrs
+        map_created = make_map(props, bbox_image_path)
         output.write(f'# {props.get("title", "")}\n\n')
         output.write("## Basic information\n\n")
-        output.write(f'![Bounding box map]({basename + ".png"})<br>\n')
+        if map_created:
+            output.write(f'![Bounding box map]({basename + ".png"})<br>\n')
         output.write(
             '<span style="font-size: x-small">Map tiles and Data by '
             '<a href="http://openstreetmap.org">OpenStreetMap</a>,'
@@ -50,14 +55,16 @@ def _create_dataset_doc(dataset: xr.Dataset, data_id: str, output_dir: str):
         )
         output.write(make_basic_info(props))
         output.write("## Variable list\n\n")
-        # output.write(make_variable_list_table(props['variables']))
         output.write(make_variable_list_table(dataset))
         output.write("## Full variable metadata\n\n")
         for variable in dataset.data_vars:
             variable_source_filename = basename + "-" + variable + ".md"
+            display_name = dataset[variable].attrs.get("long_name",
+                                                       dataset[variable].attrs.get("standard_name",
+                                                                                   dataset[variable].name))
             output.write(
                 f'### <a name="{variable}"></a>'
-                f'{dataset[variable].attrs.get("long_name")}\n\n'
+                f'{display_name}\n\n'
             )
             output.write(
                 make_table(
@@ -66,7 +73,6 @@ def _create_dataset_doc(dataset: xr.Dataset, data_id: str, output_dir: str):
             )
         output.write('## <a name="full-metadata"></a>' "Full dataset metadata\n\n")
         output.write(make_table({k: v for k, v in props.items() if k != "variables"}))
-    make_map(props, bbox_image_path)
 
 
 def make_basic_info(props: Dict[str, Any]) -> str:
@@ -90,7 +96,7 @@ def make_basic_info(props: Dict[str, Any]) -> str:
         else ""
     ) + (
         f'| Time range | {props["time_coverage_start"]} to {props["time_coverage_end"]} |\n'
-        if "time_coverage_start" in props
+        if "time_coverage_start" in props and "time_coverage_end" in props
         else ""
     ) + (
         f'| Time period | {props["time_period"]} |\n' if "time_period" in props else ""
@@ -119,10 +125,13 @@ def make_variable_list_table(base_ds: xr.Dataset) -> str:
     lines = ["| Variable | Identifier | Units |", "| ---- | ---- | ---- |"]
     # for variable in variables:
     for variable in base_ds.data_vars:
-        long_name = escape_for_markdown(
-            base_ds[variable].attrs.get("long_name", "[none]"), False
-        )
         name = escape_for_markdown(variable, False)
+        standard_name = escape_for_markdown(
+            base_ds[variable].attrs.get("standard_name", name), False
+        )
+        long_name = escape_for_markdown(
+            base_ds[variable].attrs.get("long_name", standard_name), False
+        )
         units = escape_for_markdown(
             base_ds[variable].attrs.get("units", "[none]"), False
         )
@@ -207,11 +216,11 @@ def make_map(props: Dict[str, Any], output_path: str) -> None:
         or "geospatial_lat_min" not in props
         or "geospatial_lat_max" not in props
     ):
-        return
-    x0 = props["geospatial_lon_min"]
-    x1 = props["geospatial_lon_max"]
-    y0 = props["geospatial_lat_min"]
-    y1 = props["geospatial_lat_max"]
+        return False
+    x0 = float(props["geospatial_lon_min"])
+    x1 = float(props["geospatial_lon_max"])
+    y0 = float(props["geospatial_lat_min"])
+    y1 = float(props["geospatial_lat_max"])
     w = x1 - x0
     h = y1 - y0
 
@@ -270,6 +279,8 @@ def make_map(props: Dict[str, Any], output_path: str) -> None:
     ax.gridlines(draw_labels=not large, color="white")
     plt.tight_layout(pad=0)
     plt.savefig(output_path, bbox_inches="tight", pad_inches=0.1)
+    plt.close()
+    return True
 
 
 if __name__ == "__main__":
