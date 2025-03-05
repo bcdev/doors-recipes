@@ -13,7 +13,7 @@
 
 | Variable | Identifier | Units |
 | ---- | ---- | ---- |
-| [erosion\\\\\\\_and\\\\\\\_accretion](#erosion\_and\_accretion) | erosion\_and\_accretion | dl |
+| [erosion\_and\_accretion](#erosion\_and\_accretion) | erosion\_and\_accretion | dl |
 
 ## Full variable metadata
 

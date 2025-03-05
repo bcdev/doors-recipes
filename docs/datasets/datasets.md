@@ -15,7 +15,7 @@
 
 ### Region-specific data sets
 
-- [Danube Delta Erosion Accretion](Danube_Delta_erosion_accretion.zarr_v2.zarr.md)
+- [Danube Delta Erosion Accretion](Danube_Delta_erosion_accretion_v2.zarr.md)
 - [Georgia Coast Dynamics](Georgia_coast_dynamic_SAR_v2.md)
 - [Romania Coast Dynamics](Romania_coast_dynamic_SAR.zarr.md)
 - [Turkey Coast dynamics](Turkey_coast_dynamic_SAR_v2.md)

@@ -17,27 +17,27 @@
 
 ## Variable list
 
-| Variable | Identifier | Units |
-| ---- | ---- | ---- |
-| [OWT\\\\\\\_1](#OWT\_1) | OWT\_1 | membership % |
-| [OWT\\\\\\\_10](#OWT\_10) | OWT\_10 | membership % |
-| [OWT\\\\\\\_11](#OWT\_11) | OWT\_11 | membership % |
-| [OWT\\\\\\\_12](#OWT\_12) | OWT\_12 | membership % |
-| [OWT\\\\\\\_13](#OWT\_13) | OWT\_13 | membership % |
-| [OWT\\\\\\\_14](#OWT\_14) | OWT\_14 | membership % |
-| [OWT\\\\\\\_15](#OWT\_15) | OWT\_15 | membership % |
-| [OWT\\\\\\\_16](#OWT\_16) | OWT\_16 | membership % |
-| [OWT\\\\\\\_17](#OWT\_17) | OWT\_17 | membership % |
-| [OWT\\\\\\\_18](#OWT\_18) | OWT\_18 | membership % |
-| [OWT\\\\\\\_2](#OWT\_2) | OWT\_2 | membership % |
-| [OWT\\\\\\\_3](#OWT\_3) | OWT\_3 | membership % |
-| [OWT\\\\\\\_4](#OWT\_4) | OWT\_4 | membership % |
-| [OWT\\\\\\\_5](#OWT\_5) | OWT\_5 | membership % |
-| [OWT\\\\\\\_6](#OWT\_6) | OWT\_6 | membership % |
-| [OWT\\\\\\\_7](#OWT\_7) | OWT\_7 | membership % |
-| [OWT\\\\\\\_8](#OWT\_8) | OWT\_8 | membership % |
-| [OWT\\\\\\\_9](#OWT\_9) | OWT\_9 | membership % |
-| [dominant\\\\\\\_OWT](#dominant\_OWT) | dominant\_OWT | \[none\] |
+| Variable                        | Identifier | Units |
+|---------------------------------| ---- | ---- |
+| [OWT\_1](#OWT\_1)               | OWT\_1 | membership % |
+| [OWT\_10](#OWT\_10)             | OWT\_10 | membership % |
+| [OWT\_11](#OWT\_11)             | OWT\_11 | membership % |
+| [OWT\_12](#OWT\_12)             | OWT\_12 | membership % |
+| [OWT\_13](#OWT\_13)             | OWT\_13 | membership % |
+| [OWT\_14](#OWT\_14)             | OWT\_14 | membership % |
+| [OWT\_15](#OWT\_15)             | OWT\_15 | membership % |
+| [OWT\_16](#OWT\_16)             | OWT\_16 | membership % |
+| [OWT\_17](#OWT\_17)             | OWT\_17 | membership % |
+| [OWT\_18](#OWT\_18)             | OWT\_18 | membership % |
+| [OWT\_2](#OWT\_2)               | OWT\_2 | membership % |
+| [OWT\_3](#OWT\_3)               | OWT\_3 | membership % |
+| [OWT\_4](#OWT\_4)               | OWT\_4 | membership % |
+| [OWT\_5](#OWT\_5)               | OWT\_5 | membership % |
+| [OWT\_6](#OWT\_6)               | OWT\_6 | membership % |
+| [OWT\_7](#OWT\_7)               | OWT\_7 | membership % |
+| [OWT\_8](#OWT\_8)               | OWT\_8 | membership % |
+| [OWT\_9](#OWT\_9)               | OWT\_9 | membership % |
+| [dominant\_OWT](#dominant\_OWT) | dominant\_OWT | \[none\] |
 
 ## Full variable metadata
 
