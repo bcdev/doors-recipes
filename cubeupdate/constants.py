@@ -83,7 +83,7 @@ UPDATE_CONFIGS = {
     "hroc": {
         "title": "HR-OC Coastal Daily Black Sea",
         "path_to_base": "CMEMS_OC_HR_BS-1x2160x1512_v1.levels",
-        "path_to_time_opt": "CMEMS_OC_HR_BS-420x60x56_v2.zarr",
+        "path_to_time_opt": "CMEMS_OC_HR_BS-426x60x56_v2.zarr",
         "CMEMS_base_dataset": "OCEANCOLOUR_BLK_BGC_HR_L4_NRT_009_212",
         "CMEMS_store_data_id": HROC_DATA_ID,
         "renamings": {"latitude": "lat", "longitude": "lon"},
