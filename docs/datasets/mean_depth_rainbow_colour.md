@@ -1,4 +1,4 @@
-# 
+# Mean Depth Rainbow Colour
 
 ## Basic information
 
@@ -13,24 +13,24 @@
 
 | Variable | Identifier | Units |
 | ---- | ---- | ---- |
-| [erosion\_and\_accretion](#erosion\_and\_accretion) | erosion\_and\_accretion | dl |
+| [mean\_depth](#mean\_depth) | mean\_depth | m |
 
 ## Full variable metadata
 
-### <a name="erosion_and_accretion"></a>erosion_and_accretion
+### <a name="mean_depth"></a>mean_depth
 
 | Field | Value |
 | ---- | ---- |
-| Description | coast dynamics detected from Sentinel\-1 SAR images between 2017\-2023 |
-| color\_bar\_name | viridis |
-| color\_value\_max | 17 |
-| color\_value\_min | -19 |
-| fill\_value | nan |
-| title | Romania coast changes |
-| units | dl |
+| color\_bar\_name | deep |
+| color\_value\_max | 2212 |
+| color\_value\_min | 0 |
+| title | Black Sea Mean Depth |
+| units | m |
 
 ## <a name="full-metadata"></a>Full dataset metadata
 
 | Field | Value |
 | ---- | ---- |
+| source | file:///home/tonio/project\_data/doors/data\_from\_voleta\_april\_2025/Black Sea bathymentry/Mean\_depth\_rainbow\_colour\.geotiff |
+| title | Mean Depth Rainbow Colour |
 

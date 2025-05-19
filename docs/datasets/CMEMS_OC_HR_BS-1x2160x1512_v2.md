@@ -2,7 +2,7 @@
 
 ## Basic information
 
-![Bounding box map](CMEMS_OC_HR_BS-1x2160x1512_v1.png)<br>
+![Bounding box map](CMEMS_OC_HR_BS-1x2160x1512_v2.png)<br>
 <span style="font-size: x-small">Map tiles and Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</span>
 
 | Parameter | Value |
