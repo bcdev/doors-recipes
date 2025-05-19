@@ -38,4 +38,4 @@
 ### Auxiliary Data Sets
 
 -   [EMODNET Bathymetry](mean_depth_rainbow_colour.md)
--   [Vessel Routes Density 2019 - 2024](vessell_routes_density.zarr) 
+-   [Vessel Routes Density 2019 - 2024](vessell_routes_density.zarr.md)
