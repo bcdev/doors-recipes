@@ -1,4 +1,4 @@
-# 
+# Georgia Coast Dynamics
 
 ## Basic information
 
